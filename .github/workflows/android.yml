@@ -32,5 +32,5 @@ jobs:
         title: "Development Build"
         files: |
           README.md
-          app/build/outputs/release/*.apk
-          app/build/outputs/release/*.json
+          app/build/outputs/apk/release/*.apk
+          app/build/outputs/apk/release/*.json
