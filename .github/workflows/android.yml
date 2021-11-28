@@ -29,10 +29,10 @@ jobs:
       id: sign_app
       with:
         releaseDirectory: app/build/outputs/apk/release
-        signingKeyBase64: ${{ ntutnandroid.KESTORE_BASE64 }}
-        alias: ${{ ntutnandroid.KEY_NAME }}
-        keyStorePassword: ${{ ntutnandroid.KEY_PASSWORD }}
-        keyPassword: ${{ ntutnandroid.KEY_PASSWORD }}
+        signingKeyBase64: ${{ secrets.KESTORE_BASE64 }}
+        alias: ${{ secrets.KEY_NAME }}
+        keyStorePassword: ${{ secrets.KEY_PASSWORD }}
+        keyPassword: ${{ secrets.KEY_PASSWORD }}
       env:
         # override default build-tools version (29.0.3) -- optional
         BUILD_TOOLS_VERSION: "30.0.2"
@@ -49,3 +49,4 @@ jobs:
           README.md
           app/build/outputs/apk/release/*.apk
           app/build/outputs/apk/release/*.json
+          ${{steps.sign_app.outputs.signedReleaseFile}}
