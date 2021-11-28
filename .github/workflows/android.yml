@@ -18,6 +18,9 @@ jobs:
         distribution: 'adopt'
         cache: gradle
 
+    - name: Test
+      run: echo ${{ secrets.TEST }}
+
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     - name: Build with Gradle
