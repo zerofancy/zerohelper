@@ -3,8 +3,6 @@ name: Android CI
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
 
 jobs:
   build:
@@ -24,3 +22,15 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       run: ./gradlew build
+
+    - uses: "marvinpinto/action-automatic-releases@latest"
+    - name: Publish snapshot version
+      with:
+        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        automatic_release_tag: "latest"
+        prerelease: true
+        title: "Development Build"
+        files: |
+          README.md
+          app/build/outputs/release/*.apk
+          app/build/outputs/release/*.json
