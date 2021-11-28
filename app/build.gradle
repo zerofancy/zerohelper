@@ -17,8 +17,16 @@ android {
     }
 
     buildTypes {
-        release {
+        debug {
+            applicationIdSuffix '.debug'
+            versionNameSuffix '-DEBUG'
+            resValue 'string', 'app_name', 'ZHelper'
             minifyEnabled false
+        }
+
+        release {
+            resValue 'string', 'app_name', 'ZHelper-debug'
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
