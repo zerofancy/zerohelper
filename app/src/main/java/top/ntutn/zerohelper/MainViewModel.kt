@@ -16,20 +16,8 @@ class MainViewModel : ViewModel() {
         get() = _haveUpdate
 
     fun checkForUpdate() {
-        viewModelScope.launch {
-            val apkMetaData = withContext(Dispatchers.IO) {
-                val retrofit = Retrofit.Builder()
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .baseUrl("https://github.com/")
-                    .build()
-                val service = retrofit.create(CheckUpdateApi::class.java)
-                service.getApkMetaData()
-            }
-            apkMetaData.elements.firstOrNull()?.let {
-                _haveUpdate.value = (it.versionCode > BuildConfig.VERSION_CODE) to it
-            } ?: kotlin.run {
-                _haveUpdate.value = false to null
-            }
+        UpdateUtil.checkUpdate(viewModelScope) { res ->
+            _haveUpdate.value = res
         }
     }
 }

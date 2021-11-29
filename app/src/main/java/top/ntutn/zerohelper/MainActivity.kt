@@ -23,6 +23,11 @@ class MainActivity : AppCompatActivity() {
                     .setMessage("本地${BuildConfig.VERSION_CODE}, 远端${it.second!!.versionCode}。是否更新？")
                     .setPositiveButton("是") { _, _ ->
                         Toast.makeText(this, "开始下载", Toast.LENGTH_SHORT).show()
+                        val targetFileName =
+                            it.second!!.outputFile.removeSuffix(".apk").plus("-signed.apk")
+                        val targetUrl =
+                            "https://github.com/zerofancy/zerohelper/releases/download/latest/$targetFileName"
+                        UpdateUtil.download(this, targetUrl)
                     }
                     .setNegativeButton("否") { _, _ ->
                         Toast.makeText(this, "取消更新", Toast.LENGTH_SHORT).show()
