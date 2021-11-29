@@ -10,23 +10,26 @@ import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class MainViewModel: ViewModel() {
-    private val _result = MutableLiveData<String>()
-    val result: LiveData<String>
-        get() = _result
+class MainViewModel : ViewModel() {
+    private val _haveUpdate = MutableLiveData<Pair<Boolean, ApkElement?>>()
+    val haveUpdate: LiveData<Pair<Boolean, ApkElement?>>
+        get() = _haveUpdate
 
     fun checkForUpdate() {
         viewModelScope.launch {
-            _result.value = withContext(Dispatchers.IO) {
+            val apkMetaData = withContext(Dispatchers.IO) {
                 val retrofit = Retrofit.Builder()
                     .addConverterFactory(GsonConverterFactory.create())
                     .baseUrl("https://github.com/")
                     .build()
                 val service = retrofit.create(CheckUpdateApi::class.java)
-                service.getApkMetaData().run {
-                    "loca: ${BuildConfig.VERSION_CODE}, remote: ${this.elements.firstOrNull()?.versionCode}"
-                }
-            }?:"nternet error"
+                service.getApkMetaData()
+            }
+            apkMetaData.elements.firstOrNull()?.let {
+                _haveUpdate.value = (it.versionCode > BuildConfig.VERSION_CODE) to it
+            } ?: kotlin.run {
+                _haveUpdate.value = false to null
+            }
         }
     }
 }
