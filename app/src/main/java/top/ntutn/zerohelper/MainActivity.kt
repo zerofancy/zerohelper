@@ -6,6 +6,14 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import top.ntutn.zerohelper.databinding.ActivityMainBinding
+import android.app.DownloadManager
+
+import android.content.Intent
+
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.IntentFilter
+import android.database.Cursor
 
 class MainActivity : AppCompatActivity() {
     private val viewModel: MainViewModel by viewModels()
@@ -27,7 +35,7 @@ class MainActivity : AppCompatActivity() {
                             it.second!!.outputFile.removeSuffix(".apk").plus("-signed.apk")
                         val targetUrl =
                             "https://github.com/zerofancy/zerohelper/releases/download/latest/$targetFileName"
-                        UpdateUtil.download(this, targetUrl)
+                        viewModel.download(this, targetUrl)
                     }
                     .setNegativeButton("否") { _, _ ->
                         Toast.makeText(this, "取消更新", Toast.LENGTH_SHORT).show()
@@ -38,9 +46,52 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "当前已是最新版本", Toast.LENGTH_SHORT).show()
             }
         }
+        viewModel.downloadId.observe(this) {
+            it?:return@observe
+            registerReceiver(receiver,
+                IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
+            )
+        }
 
         binding.test.setOnClickListener {
             viewModel.checkForUpdate()
+        }
+
+        UpdateUtil.init(this)
+    }
+
+    //广播监听下载的各个状态
+    private val receiver: BroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            checkStatus()
+        }
+    }
+
+    //检查下载状态
+    private fun checkStatus() {
+        val query = DownloadManager.Query()
+        //通过下载的id查找
+        query.setFilterById(viewModel.downloadId.value!!)
+        val cursor: Cursor = UpdateUtil.downloadManager?.query(query)?:return
+        if (cursor.moveToFirst()) {
+            val column = cursor.getColumnIndex(DownloadManager.COLUMN_STATUS).takeIf { it>=0 }?:return
+            val status: Int = cursor.getInt(column)
+            when (status) {
+                DownloadManager.STATUS_PAUSED -> {}
+                DownloadManager.STATUS_PENDING -> {}
+                DownloadManager.STATUS_RUNNING -> {}
+                DownloadManager.STATUS_SUCCESSFUL -> {
+                    //下载完成安装APK
+                    viewModel.installApk(this)
+                    Toast.makeText(this, "Download succeed", Toast.LENGTH_SHORT).show()
+                    cursor.close()
+                }
+                DownloadManager.STATUS_FAILED -> {
+                    Toast.makeText(this, "下载失败", Toast.LENGTH_SHORT).show()
+                    cursor.close()
+                    this.unregisterReceiver(receiver)
+                }
+            }
         }
     }
 }
