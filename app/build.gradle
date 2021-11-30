@@ -10,8 +10,8 @@ android {
         applicationId "top.ntutn.zerohelper"
         minSdk 21
         targetSdk 31
-        versionCode 3
-        versionName "Auto Update"
+        versionCode 4
+        versionName "icon"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
