@@ -1,2 +1,5 @@
 <resources>
+    <string name="crash_copy_to_clipboard">复制到剪贴板</string>
+    <string name="crash_send_to_developer">发送给开发者</string>
+    <string name="crash_restart_app">重启应用</string>
 </resources>

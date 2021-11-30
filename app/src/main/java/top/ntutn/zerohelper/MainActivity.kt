@@ -14,6 +14,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.IntentFilter
 import android.database.Cursor
+import kotlin.concurrent.thread
 
 class MainActivity : AppCompatActivity() {
     private val viewModel: MainViewModel by viewModels()
@@ -55,6 +56,14 @@ class MainActivity : AppCompatActivity() {
 
         binding.test.setOnClickListener {
             viewModel.checkForUpdate()
+        }
+        binding.crashButton.setOnClickListener {
+            thread {
+                throw RuntimeException("主动Crash")
+            }.start()
+        }
+        binding.killButton.setOnClickListener {
+            ApplicationUtil.restart()
         }
 
         UpdateUtil.init(this)
