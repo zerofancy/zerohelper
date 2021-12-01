@@ -4,10 +4,13 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.net.Uri
 import android.os.Bundle
 import android.os.Process
+import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import top.ntutn.zerohelper.databinding.ActivityCrashReportBinding
 import kotlin.system.exitProcess
 
@@ -50,7 +53,22 @@ class CrashReportActivity : AppCompatActivity() {
             Toast.makeText(this, "复制成功", Toast.LENGTH_SHORT).show()
         }
         binding.sendToDeveloperButton.setOnClickListener {
-            TODO("发送到tg吧")
+            val editText = EditText(this)
+            AlertDialog.Builder(this)
+                .setView(editText)
+                .setTitle("输入邮箱地址")
+                .setMessage("输入接收者的邮件地址，分号分隔")
+                .setPositiveButton("发送") { _,_->
+                    val intent = Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:${editText.text}")).apply {
+                        putExtra(Intent.EXTRA_SUBJECT, "crash报告")
+                        putExtra(Intent.EXTRA_TEXT, crashInfo)
+                    }
+                    startActivity(Intent.createChooser(intent, "通过邮件发送crash报告"))
+                }
+                .setNegativeButton("取消") { _,_ ->
+                    // do nothing
+                }
+                .create().show()
         }
         binding.restartButton.setOnClickListener {
             ApplicationUtil.restart()

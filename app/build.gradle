@@ -10,8 +10,8 @@ android {
         applicationId "top.ntutn.zerohelper"
         minSdk 21
         targetSdk 31
-        versionCode 5
-        versionName "crash"
+        versionCode 6
+        versionName "email"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
