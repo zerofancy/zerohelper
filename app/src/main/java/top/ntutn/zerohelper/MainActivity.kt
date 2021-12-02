@@ -18,7 +18,7 @@ import top.ntutn.zerohelper.util.ApplicationUtil
 import top.ntutn.zerohelper.util.UpdateUtil
 import kotlin.concurrent.thread
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
     private val viewModel: MainViewModel by viewModels()
     private lateinit var binding: ActivityMainBinding
 
@@ -67,8 +67,14 @@ class MainActivity : AppCompatActivity() {
         binding.killButton.setOnClickListener {
             ApplicationUtil.restart()
         }
+        binding.aboutButton.setOnClickListener { AboutActivity.actionStart(this) }
 
         UpdateUtil.init(this)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        UpdateUtil.destroy()
     }
 
     //广播监听下载的各个状态
