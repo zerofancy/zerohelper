@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import top.ntutn.zerohelper.databinding.ActivityCrashReportBinding
+import top.ntutn.zerohelper.util.ApplicationUtil
 import kotlin.system.exitProcess
 
 class CrashReportActivity : AppCompatActivity() {

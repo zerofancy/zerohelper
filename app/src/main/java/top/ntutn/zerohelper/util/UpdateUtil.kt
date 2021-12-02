@@ -1,4 +1,4 @@
-package top.ntutn.zerohelper
+package top.ntutn.zerohelper.util
 
 import android.app.DownloadManager
 import android.content.Context
@@ -10,12 +10,14 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
 import java.io.IOException
-import java.util.*
 import android.content.Intent
 
 import androidx.core.content.FileProvider
 
 import android.os.Build
+import top.ntutn.zerohelper.ApkElement
+import top.ntutn.zerohelper.BuildConfig
+import top.ntutn.zerohelper.CheckUpdateApi
 
 object UpdateUtil {
     var downloadManager: DownloadManager? = null

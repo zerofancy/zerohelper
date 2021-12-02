@@ -1,8 +1,9 @@
-package top.ntutn.zerohelper
+package top.ntutn.zerohelper.util
 
 import android.content.Context
 import android.content.Intent
 import android.os.Process
+import top.ntutn.zerohelper.MainActivity
 import kotlin.system.exitProcess
 
 

@@ -14,6 +14,8 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.IntentFilter
 import android.database.Cursor
+import top.ntutn.zerohelper.util.ApplicationUtil
+import top.ntutn.zerohelper.util.UpdateUtil
 import kotlin.concurrent.thread
 
 class MainActivity : AppCompatActivity() {
