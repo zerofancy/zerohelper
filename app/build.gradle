@@ -10,8 +10,8 @@ android {
         applicationId "top.ntutn.zerohelper"
         minSdk 21
         targetSdk 31
-        versionCode 7
-        versionName "about"
+        versionCode 8
+        versionName "optim about"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

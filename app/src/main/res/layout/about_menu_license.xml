@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/menu_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        tools:text="LiveData"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/menu_company"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        tools:text="Google"
+        app:layout_constraintLeft_toLeftOf="@id/menu_name"
+        app:layout_constraintTop_toBottomOf="@id/menu_name"
+        android:textStyle="italic|bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/menu_license"
+        app:layout_constraintStart_toEndOf="@id/menu_company"
+        tools:text="MIT"
+        app:layout_constraintBaseline_toBaselineOf="@id/menu_company"
+        android:layout_marginStart="16dp"
+        android:textStyle="italic" />
+
+    <TextView
+        android:id="@+id/menu_home_page"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:autoLink="all"
+        tools:text="https://developer.android.com/topic/libraries/architecture/livedata"
+        app:layout_constraintStart_toStartOf="@id/menu_company"
+        app:layout_constraintTop_toBottomOf="@id/menu_company" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
