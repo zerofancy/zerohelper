@@ -17,6 +17,7 @@
             android:name=".AboutActivity"
             android:exported="true" />
         <activity android:name=".CrashReportActivity" />
+        <activity android:name=".TestViewPager2Activity" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

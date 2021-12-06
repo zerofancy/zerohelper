@@ -50,8 +50,9 @@ class MainActivity : BaseActivity() {
             }
         }
         viewModel.downloadId.observe(this) {
-            it?:return@observe
-            registerReceiver(receiver,
+            it ?: return@observe
+            registerReceiver(
+                receiver,
                 IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
             )
         }
@@ -67,6 +68,7 @@ class MainActivity : BaseActivity() {
         binding.killButton.setOnClickListener {
             ApplicationUtil.restart()
         }
+        binding.testViewPager2Button.setOnClickListener { TestViewPager2Activity.actionStart(this) }
         binding.aboutButton.setOnClickListener { AboutActivity.actionStart(this) }
 
         UpdateUtil.init(this)
@@ -89,9 +91,9 @@ class MainActivity : BaseActivity() {
         val query = DownloadManager.Query()
         //通过下载的id查找
         query.setFilterById(viewModel.downloadId.value!!)
-        val cursor: Cursor = UpdateUtil.downloadManager?.query(query)?:return
+        val cursor: Cursor = UpdateUtil.downloadManager?.query(query) ?: return
         if (cursor.moveToFirst()) {
-            val column = cursor.getColumnIndex(DownloadManager.COLUMN_STATUS).takeIf { it>=0 }?:return
+            val column = cursor.getColumnIndex(DownloadManager.COLUMN_STATUS).takeIf { it >= 0 } ?: return
             val status: Int = cursor.getInt(column)
             when (status) {
                 DownloadManager.STATUS_PAUSED -> {}
