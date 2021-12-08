@@ -20,6 +20,9 @@ import top.ntutn.zerohelper.BuildConfig
 import top.ntutn.zerohelper.CheckUpdateApi
 
 object UpdateUtil {
+    private const val PROVIDER_AUTHORITIES_DEBUG = "top.ntutn.zerohelper.debug.fileprovider"
+    private const val PROVIDER_AUTHORITIES_RELEASE = "top.ntutn.zerohelper.fileprovider"
+
     var downloadManager: DownloadManager? = null
 
     fun init(context: Context) {
@@ -88,10 +91,17 @@ object UpdateUtil {
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         //Android 7.0以上要使用FileProvider
         if (Build.VERSION.SDK_INT >= 24) {
-            val file: File = File(pathstr)
+            val file = File(pathstr)
             //参数1 上下文, 参数2 Provider主机地址 和配置文件中保持一致   参数3  共享的文件
             val apkUri =
-                FileProvider.getUriForFile(context, "top.ntutn.zerohelper.fileprovider", file)
+                FileProvider.getUriForFile(
+                    context,
+                    if (BuildConfig.DEBUG) {
+                        PROVIDER_AUTHORITIES_DEBUG
+                    } else {
+                        PROVIDER_AUTHORITIES_RELEASE
+                    }, file
+                )
             //添加这一句表示对目标应用临时授权该Uri所代表的文件
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
             intent.setDataAndType(apkUri, "application/vnd.android.package-archive")
