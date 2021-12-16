@@ -35,7 +35,10 @@ class AboutActivity : BaseActivity() {
 
         binding.aboutRecyclerView.layoutManager = LinearLayoutManager(this)
         binding.aboutRecyclerView.adapter = AboutAdapter(mutableListOf<MenuItem>().apply {
-            title(getString(R.string.app_name), "${BuildConfig.VERSION_NAME}(${BuildConfig.VERSION_CODE})")
+            title(
+                getString(R.string.app_name),
+                "${BuildConfig.VERSION_NAME}(${BuildConfig.VERSION_CODE})"
+            )
             user(
                 avatar = "file:///android_asset/img/ntutn_avatar.jpg",
                 name = "归零幻想",
@@ -46,28 +49,44 @@ class AboutActivity : BaseActivity() {
                 "https://ntutn.top",
             )
             license(
+                componentName = "Glide",
+                companyName = "Google",
+                MenuLicenseItem.License.GLIDE,
+                "https://github.com/bumptech/glide"
+            )
+            license(
                 componentName = "LiveData",
                 companyName = "Google",
                 MenuLicenseItem.License.MIT,
                 "https://developer.android.com/topic/libraries/architecture/livedata"
             )
+            license(
+                componentName = "Retrtofit",
+                companyName = "Squareup",
+                MenuLicenseItem.License.APACHE_2,
+                "https://square.github.io/retrofit/"
+            )
         })
     }
 }
 
-class AboutAdapter(private val menuList: List<MenuItem>) : RecyclerView.Adapter<AboutAdapter.AboutMenuViewHolder>() {
-    abstract class AboutMenuViewHolder(viewBinding: ViewBinding) : RecyclerView.ViewHolder(viewBinding.root) {
+class AboutAdapter(private val menuList: List<MenuItem>) :
+    RecyclerView.Adapter<AboutAdapter.AboutMenuViewHolder>() {
+    abstract class AboutMenuViewHolder(viewBinding: ViewBinding) :
+        RecyclerView.ViewHolder(viewBinding.root) {
         abstract fun bind(item: MenuItem)
     }
 
-    class TitleMenuViewHolder(val viewBinding: AboutMenuTitleBinding) : AboutMenuViewHolder(viewBinding) {
+    class TitleMenuViewHolder(val viewBinding: AboutMenuTitleBinding) :
+        AboutMenuViewHolder(viewBinding) {
         override fun bind(item: MenuItem) {
             require(item is MenuTitleItem)
             viewBinding.descriptionTextView.text = "${item.appName}\nversion:${item.appVersion}"
         }
     }
 
-    class UserMenuViewHolder(val viewBinding: AboutMenuUserBinding) : AboutMenuViewHolder(viewBinding) {
+    class UserMenuViewHolder(val viewBinding: AboutMenuUserBinding) :
+        AboutMenuViewHolder(viewBinding) {
         override fun bind(item: MenuItem) {
             require(item is MenuUserItem)
             Glide.with(viewBinding.root)
@@ -88,7 +107,8 @@ class AboutAdapter(private val menuList: List<MenuItem>) : RecyclerView.Adapter<
         }
     }
 
-    class LicenseMenuViewHolder(val viewBinding: AboutMenuLicenseBinding) : AboutMenuViewHolder(viewBinding) {
+    class LicenseMenuViewHolder(val viewBinding: AboutMenuLicenseBinding) :
+        AboutMenuViewHolder(viewBinding) {
         override fun bind(item: MenuItem) {
             require(item is MenuLicenseItem)
             viewBinding.menuName.text = item.componentName
@@ -148,24 +168,40 @@ class MenuTitleItem(val appName: String, val appVersion: String) : MenuItem() {
     override val itemType: ItemType = ItemType.TITLE
 }
 
-class MenuLicenseItem(val componentName: String, val companyName: String, val license: License, val homepage: String) :
+class MenuLicenseItem(
+    val componentName: String,
+    val companyName: String,
+    val license: License,
+    val homepage: String
+) :
     MenuItem() {
     override val itemType: ItemType = ItemType.LICENSE
 
     enum class License {
-        MIT;
+        MIT,
+        APACHE_2,
+        GLIDE;
 
         fun link() = when (this) {
             MIT -> "https://opensource.org/licenses/MIT"
+            APACHE_2 -> "https://www.apache.org/licenses/LICENSE-2.0"
+            GLIDE -> "https://github.com/bumptech/glide/raw/master/LICENSE"
         }
 
         fun showName() = when (this) {
             MIT -> "MIT License"
+            APACHE_2 -> "Apache License Version 2.0"
+            GLIDE -> "View License"
         }
     }
 }
 
-class MenuUserItem(val avatar: String, val name: String, val description: String, val link: String?) : MenuItem() {
+class MenuUserItem(
+    val avatar: String,
+    val name: String,
+    val description: String,
+    val link: String?
+) : MenuItem() {
     override val itemType: ItemType = ItemType.USER
 }
 
