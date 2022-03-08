@@ -9,7 +9,7 @@ buildscript {
     }
     dependencies {
         //noinspection AndroidGradlePluginVersion
-        classpath "com.android.tools.build:gradle:4.2.0" // 暂时不升级，新版本在我的MacOS上Sync不过
+        classpath "com.android.tools.build:gradle:4.2.2" // 暂时不升级，新版本在我的MacOS上Sync不过
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.0"
 
         // NOTE: Do not place your application dependencies here; they belong
