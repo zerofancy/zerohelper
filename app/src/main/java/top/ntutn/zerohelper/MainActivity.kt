@@ -70,6 +70,7 @@ class MainActivity : BaseActivity() {
         }
         binding.testViewPager2Button.setOnClickListener { TestViewPager2Activity.actionStart(this) }
         binding.aboutButton.setOnClickListener { AboutActivity.actionStart(this) }
+        binding.batteryButton.setOnClickListener { TestBatteryViewActivity.actionStart(this) }
 
         UpdateUtil.init(this)
     }
