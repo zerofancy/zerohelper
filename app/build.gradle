@@ -10,8 +10,8 @@ android {
         applicationId "top.ntutn.zerohelper"
         minSdk 21
         targetSdk 31
-        versionCode 10
-        versionName "add link"
+        versionCode 11
+        versionName "BatteryView"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -39,6 +39,9 @@ android {
     }
     buildFeatures {
         viewBinding true
+    }
+    lintOptions {
+        abortOnError false
     }
 }
 
