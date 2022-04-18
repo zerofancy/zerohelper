@@ -87,7 +87,7 @@ class BatteryView @JvmOverloads constructor(
         get() = chargingMatrixProto.apply {
             val targetHeight = height - 2f.dpFloat * scale
             val currentHeight = chargingBitmap.height
-            setTranslate((3.71f + 0.77f).dpFloat * scale, 1f.dpFloat * scale)
+            setTranslate(width / 2 - 3f.dpFloat * scale, 1f.dpFloat * scale)
             preScale(targetHeight / currentHeight, targetHeight / currentHeight)
         }
 
