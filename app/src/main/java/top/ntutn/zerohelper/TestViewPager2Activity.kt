@@ -2,12 +2,25 @@ package top.ntutn.zerohelper
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.graphics.Color
+import android.graphics.Rect
+import android.graphics.drawable.Drawable
+import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.util.AttributeSet
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.PixelCopy
+import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
+import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.core.graphics.toRectF
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
@@ -20,9 +33,8 @@ import top.ntutn.zerohelper.databinding.ActivityTestViewPager2Binding
 import top.ntutn.zerohelper.databinding.LayoutSimplePagerItemBinding
 import kotlin.random.Random
 
-class TestViewPager2Activity : BaseActivity() {
-    private val activityViewModel by viewModels<TestViewPagerActivityViewModel>()
 
+class TestViewPager2Activity : BaseActivity() {
     companion object {
         private const val TAG = "TestViewPager2Activity"
 
@@ -31,7 +43,10 @@ class TestViewPager2Activity : BaseActivity() {
         }
     }
 
+    private val activityViewModel by viewModels<TestViewPagerActivityViewModel>()
     private lateinit var binding: ActivityTestViewPager2Binding
+    private val mainHandler = Handler(Looper.getMainLooper())
+
     private val onPageChangedCallback = object : ViewPager2.OnPageChangeCallback() {
         override fun onPageSelected(position: Int) {
             super.onPageSelected(position)
@@ -54,6 +69,9 @@ class TestViewPager2Activity : BaseActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityTestViewPager2Binding.inflate(layoutInflater)
         setContentView(binding.root)
+//        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);   //设置沉浸式虚拟键，在MIUI系统中，虚拟键背景透明。原生系统中，虚拟键背景半透明。
+//        binding.viewPager2.fitsSystemWindows = true
+
 
         binding.viewPager2.adapter = ViewPager2FragmentAdapter(supportFragmentManager, lifecycle)
         binding.viewPager2.registerOnPageChangeCallback(onPageChangedCallback)
@@ -62,7 +80,53 @@ class TestViewPager2Activity : BaseActivity() {
         activityViewModel.currentPageNumber.observe(this) {
             binding.viewPager2.currentItem = it
         }
+//        binding.viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+//            override fun onPageScrollStateChanged(state: Int) {
+//                super.onPageScrollStateChanged(state)
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//                    mainHandler.post {
+//                        val bitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888)
+//                        PixelCopy.request(window, bitmap, {
+//                            if (it == PixelCopy.SUCCESS) {
+//                                val color = bitmap.getPixel(0, 0)
+//                                window.statusBarColor = color
+//                            }
+//                        }, Handler(Looper.getMainLooper()))
+//                    }
+//                } else {
+//                    val bitmap = window.decorView.drawingCache
+//                    val color = bitmap.getPixel(0, 0)
+//                    window.statusBarColor = color
+//                }
+//            }
+//        })
+        val drawRect = Rect()
+            window.decorView.getWindowVisibleDisplayFrame(drawRect)
+        drawRect.top = drawRect.bottom - 1
+        drawRect.left = drawRect.right / 2 - 1
+        drawRect.right = drawRect.right / 2
+//        binding.viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+//            override fun onPageScrollStateChanged(state: Int) {
+//                super.onPageScrollStateChanged(state)
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//                    mainHandler.post {
+//                        val bitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888)
+//                        PixelCopy.request(window, drawRect, bitmap, {
+//                            if (it == PixelCopy.SUCCESS) {
+//                                val color = bitmap.getPixel(0, 0)
+//                                window.navigationBarColor = color
+//                            }
+//                        }, Handler(Looper.getMainLooper()))
+//                    }
+//                } else {
+//                    val bitmap = window.decorView.drawingCache
+//                    val color = bitmap.getPixel(0, 0)
+//                    window.navigationBarColor = color
+//                }
+//            }
+//        })
     }
+
 
     override fun onDestroy() {
         super.onDestroy()
@@ -70,7 +134,7 @@ class TestViewPager2Activity : BaseActivity() {
     }
 }
 
-class ViewPager2FragmentAdapter(fm: FragmentManager, lifecycle: Lifecycle): FragmentStateAdapter(fm, lifecycle) {
+class ViewPager2FragmentAdapter(fm: FragmentManager, lifecycle: Lifecycle) : FragmentStateAdapter(fm, lifecycle) {
     override fun getItemCount(): Int = Int.MAX_VALUE
 
     override fun createFragment(position: Int): Fragment {
