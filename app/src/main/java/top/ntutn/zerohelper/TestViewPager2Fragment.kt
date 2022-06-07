@@ -1,22 +1,31 @@
 package top.ntutn.zerohelper
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.Color
+import android.graphics.Rect
+import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.MotionEvent
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.FrameLayout
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.annotation.ColorInt
+import androidx.core.view.postDelayed
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import top.ntutn.zerohelper.databinding.LayoutSimplePagerItemBinding
 
 class TestViewPager2Fragment : Fragment() {
     companion object {
         private const val KEY_POSITION = "key_position"
         private const val KEY_COLOR = "key_color"
+        private const val TAG = "TestViewPager2Fragment"
 
         fun create(position: Int, @ColorInt color: Int): TestViewPager2Fragment {
             return TestViewPager2Fragment().apply {
@@ -43,10 +52,13 @@ class TestViewPager2Fragment : Fragment() {
         Log.d(javaClass.simpleName, "$tag onCreate() invoked")
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         Log.d(javaClass.simpleName, "$tag onCreateView() invoked")
         _binding = LayoutSimplePagerItemBinding.inflate(inflater, container, false)
 
+        val color = arguments?.getInt(KEY_COLOR)
+        val position = (arguments?.get(KEY_POSITION) as? Int) ?: 0
         binding.root.setOnTouchListener { v, event ->
             when (event.action) {
                 MotionEvent.ACTION_DOWN -> return@setOnTouchListener true
@@ -61,7 +73,39 @@ class TestViewPager2Fragment : Fragment() {
                             return@setOnTouchListener true
                         }
                         else -> {
-                            activityViewModel.changeItemPosition((activityViewModel.currentPageNumber.value ?: 0) + 10)
+                            Log.i(TAG, "弹窗")
+                            BottomSheetDialog(context ?: return@setOnTouchListener true)
+                                .apply {
+                                    val view = TextView(binding.root.context)
+                                    view.text = "这是个弹窗"
+                                    view.setBackgroundColor(Color.GREEN)
+                                    view.layoutParams =
+                                        ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 200)
+
+                                    val layout = LinearLayout(binding.root.context)
+                                    layout.orientation = LinearLayout.VERTICAL
+                                    layout.addView(view)
+                                    layout.layoutParams =
+                                        ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 400)
+                                    layout.setBackgroundColor(listOf(Color.WHITE, Color.BLACK)[position % 2])
+
+                                    setContentView(layout)
+//                                    window?.decorView?.postDelayed({
+//                                        val drawRect = Rect()
+//                                        window?.decorView?.getWindowVisibleDisplayFrame(drawRect)?:return@postDelayed
+//                                        val bitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888)
+//                                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//                                            PixelCopy.request(window!!, drawRect, bitmap, {
+//                                                if (it == PixelCopy.SUCCESS) {
+//                                                    val color = bitmap.getPixel(0, 0)
+////                                                    window!!.navigationBarColor = color
+//                                                }
+//                                            }, Handler(Looper.getMainLooper()))
+//                                        }
+//                                    },500L)
+                                }
+                                .show()
+//                            activityViewModel.changeItemPosition((activityViewModel.currentPageNumber.value ?: 0) + 10)
                             return@setOnTouchListener true
                         }
                     }
@@ -70,8 +114,6 @@ class TestViewPager2Fragment : Fragment() {
             false
         }
 
-        val color = arguments?.getInt(KEY_COLOR)
-        val position = arguments?.get(KEY_POSITION)
 
         if (color != null && position != null) {
             bindData("第${position}页" to color)

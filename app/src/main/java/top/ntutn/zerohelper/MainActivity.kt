@@ -14,7 +14,15 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.IntentFilter
 import android.database.Cursor
+import android.graphics.Color
+import android.os.Build
+import android.view.View
+import android.view.Window
+import android.view.WindowManager
 import top.ntutn.zerohelper.util.ApplicationUtil
+import top.ntutn.zerohelper.util.NavigationBarUtil
+import top.ntutn.zerohelper.util.NavigationBarUtil.navigationBarDark
+import top.ntutn.zerohelper.util.NavigationBarUtil.navigationBarLight
 import top.ntutn.zerohelper.util.UpdateUtil
 import kotlin.concurrent.thread
 
@@ -73,6 +81,15 @@ class MainActivity : BaseActivity() {
         binding.batteryButton.setOnClickListener { TestBatteryViewActivity.actionStart(this) }
 
         UpdateUtil.init(this)
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        window.navigationBarColor = Color.parseColor("#F8F8F8")
+        NavigationBarUtil.setLightNavigationBarColor(window, true)
+
+//        navigationBarDark()
     }
 
     override fun onDestroy() {
