@@ -10,8 +10,8 @@ android {
         applicationId "top.ntutn.zerohelper"
         minSdk 21
         targetSdk 33
-        versionCode 12
-        versionName "BatteryView"
+        versionCode 13
+        versionName "Upgrade AGP"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -40,7 +40,7 @@ android {
     buildFeatures {
         viewBinding true
     }
-    lintOptions {
+    lint {
         abortOnError false
     }
 }
