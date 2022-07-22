@@ -204,7 +204,7 @@ class AboutAdapter(private val menuList: List<MenuItem>) :
 }
 
 abstract class MenuItem {
-    abstract val itemType: MenuItem.ItemType
+    abstract val itemType: ItemType
 
     enum class ItemType {
         TITLE,
