@@ -3,7 +3,7 @@ package top.ntutn.zerohelper.util
 import android.content.Context
 import android.content.Intent
 import android.os.Process
-import top.ntutn.zerohelper.MainActivity
+import top.ntutn.zerohelper.container.SplashActivity
 import kotlin.system.exitProcess
 
 
@@ -17,7 +17,7 @@ object ApplicationUtil {
     fun restart() {
         val intent = Intent(
             applicationContext,
-            MainActivity::class.java
+            SplashActivity::class.java
         )
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         applicationContext.startActivity(intent)

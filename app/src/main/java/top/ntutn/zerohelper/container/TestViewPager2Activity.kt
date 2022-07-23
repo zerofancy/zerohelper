@@ -1,26 +1,16 @@
-package top.ntutn.zerohelper
+package top.ntutn.zerohelper.container
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Rect
-import android.graphics.drawable.Drawable
-import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.AttributeSet
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.PixelCopy
-import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
-import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.core.graphics.toRectF
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
@@ -29,8 +19,10 @@ import androidx.viewbinding.ViewBinding
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.adapter.FragmentViewHolder
 import androidx.viewpager2.widget.ViewPager2
+import top.ntutn.zerohelper.base.BaseActivity
 import top.ntutn.zerohelper.databinding.ActivityTestViewPager2Binding
 import top.ntutn.zerohelper.databinding.LayoutSimplePagerItemBinding
+import top.ntutn.zerohelper.vm.TestViewPagerActivityViewModel
 import kotlin.random.Random
 
 

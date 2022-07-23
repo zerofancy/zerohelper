@@ -1,4 +1,4 @@
-package top.ntutn.zerohelper
+package top.ntutn.zerohelper.container
 
 import android.content.Context
 import android.content.Intent
@@ -8,6 +8,7 @@ import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
+import top.ntutn.zerohelper.base.BaseActivity
 import top.ntutn.zerohelper.databinding.ActivityTestBatteryViewBinding
 import top.ntutn.zerohelper.util.dp
 import java.util.concurrent.TimeUnit

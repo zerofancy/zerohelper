@@ -1,4 +1,4 @@
-package top.ntutn.zerohelper
+package top.ntutn.zerohelper.view
 
 import android.content.Context
 import android.graphics.BitmapFactory
@@ -9,6 +9,7 @@ import android.graphics.Paint
 import android.util.AttributeSet
 import android.util.Log
 import android.view.View
+import top.ntutn.zerohelper.R
 import top.ntutn.zerohelper.util.dp
 import top.ntutn.zerohelper.util.dpFloat
 import kotlin.math.atan

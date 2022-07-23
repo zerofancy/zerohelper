@@ -1,6 +1,6 @@
 package top.ntutn.zerohelper.util
 
-import top.ntutn.zerohelper.CrashReportActivity
+import top.ntutn.zerohelper.container.CrashReportActivity
 
 object LooperProxyUtil : Thread.UncaughtExceptionHandler {
 

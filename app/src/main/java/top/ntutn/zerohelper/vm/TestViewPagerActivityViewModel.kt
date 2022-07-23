@@ -1,4 +1,4 @@
-package top.ntutn.zerohelper
+package top.ntutn.zerohelper.vm
 
 import androidx.annotation.UiThread
 import androidx.lifecycle.LiveData

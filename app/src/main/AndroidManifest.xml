@@ -14,7 +14,7 @@
             android:supportsRtl="true"
             android:theme="@style/Theme.ZeroHelper">
         <activity
-                android:name=".SplashActivity"
+                android:name=".container.SplashActivity"
                 android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,20 +23,11 @@
             </intent-filter>
         </activity>
         <activity
-                android:name=".AboutActivity"
+                android:name=".container.AboutActivity"
                 android:exported="true" />
-        <activity android:name=".CrashReportActivity" />
-        <activity android:name=".TestViewPager2Activity" />
-        <activity android:name=".TestBatteryViewActivity" />
-        <activity
-                android:name=".MainActivity"
-                android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".container.CrashReportActivity" />
+        <activity android:name=".container.TestViewPager2Activity" />
+        <activity android:name=".container.TestBatteryViewActivity" />
     </application>
 
 </manifest>

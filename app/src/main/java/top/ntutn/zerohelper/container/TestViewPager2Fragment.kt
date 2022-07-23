@@ -1,25 +1,19 @@
-package top.ntutn.zerohelper
+package top.ntutn.zerohelper.container
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.Bitmap
 import android.graphics.Color
-import android.graphics.Rect
-import android.os.Build
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import android.view.*
-import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.ColorInt
-import androidx.core.view.postDelayed
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import top.ntutn.zerohelper.databinding.LayoutSimplePagerItemBinding
+import top.ntutn.zerohelper.vm.TestViewPagerActivityViewModel
 
 class TestViewPager2Fragment : Fragment() {
     companion object {

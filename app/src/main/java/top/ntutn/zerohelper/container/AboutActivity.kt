@@ -1,4 +1,4 @@
-package top.ntutn.zerohelper
+package top.ntutn.zerohelper.container
 
 import android.content.Context
 import android.content.Intent
@@ -6,13 +6,15 @@ import android.net.Uri
 import android.os.Bundle
 import android.text.Html
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.bumptech.glide.Glide
+import top.ntutn.zerohelper.BuildConfig
+import top.ntutn.zerohelper.R
+import top.ntutn.zerohelper.base.BaseActivity
 import top.ntutn.zerohelper.databinding.AboutMenuLicenseBinding
 import top.ntutn.zerohelper.databinding.AboutMenuTitleBinding
 import top.ntutn.zerohelper.databinding.AboutMenuUserBinding

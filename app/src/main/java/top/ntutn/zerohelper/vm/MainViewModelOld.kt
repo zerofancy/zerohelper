@@ -1,4 +1,4 @@
-package top.ntutn.zerohelper
+package top.ntutn.zerohelper.vm
 
 import android.content.Context
 import android.os.Environment
@@ -6,11 +6,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import top.ntutn.zerohelper.ApkElement
 import top.ntutn.zerohelper.util.UpdateUtil
 import java.io.File
 import java.util.*
 
-class MainViewModel : ViewModel() {
+class MainViewModelOld : ViewModel() {
     private val _haveUpdate = MutableLiveData<Pair<Boolean, ApkElement?>>()
     val haveUpdate: LiveData<Pair<Boolean, ApkElement?>>
         get() = _haveUpdate
