@@ -1,21 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-        package="top.ntutn.zerohelper">
+    package="top.ntutn.zerohelper">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
     <application
-            android:name=".MyApplication"
-            android:allowBackup="true"
-            android:icon="@mipmap/ic_launcher"
-            android:label="@string/app_name"
-            android:roundIcon="@mipmap/ic_launcher_round"
-            android:supportsRtl="true"
-            android:theme="@style/Theme.ZeroHelper">
+        android:name=".MyApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.ZeroHelper">
         <activity
-                android:name=".container.SplashActivity"
-                android:exported="true">
+            android:name=".container.RecyclerViewActivity"
+            android:exported="false" />
+        <activity
+            android:name=".container.MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,8 +26,8 @@
             </intent-filter>
         </activity>
         <activity
-                android:name=".container.AboutActivity"
-                android:exported="true" />
+            android:name=".container.AboutActivity"
+            android:exported="true" />
         <activity android:name=".container.CrashReportActivity" />
         <activity android:name=".container.TestViewPager2Activity" />
         <activity android:name=".container.TestBatteryViewActivity" />

@@ -9,7 +9,7 @@ import top.ntutn.zerohelper.item
 import top.ntutn.zerohelper.title
 import java.lang.RuntimeException
 
-class SplashActivity : BaseActivity() {
+class MainActivity : BaseActivity() {
     private lateinit var binding: ActivitySplashBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,12 +24,15 @@ class SplashActivity : BaseActivity() {
         binding.demoItemRecyclerView.layoutManager = LinearLayoutManager(this)
         binding.demoItemRecyclerView.adapter = MainListAdapter(mutableListOf<MainListAdapter.Item>().apply {
             title("基础组件")
-            item("RecyclerView2") {
-                TestViewPager2Activity.actionStart(this@SplashActivity)
+            item("ViewPager2") {
+                TestViewPager2Activity.actionStart(this@MainActivity)
+            }
+            item("RecyclerView局部刷新") {
+                RecyclerViewActivity.actionStart(this@MainActivity)
             }
             title("自定义View")
             item("电池") {
-                TestBatteryViewActivity.actionStart(this@SplashActivity)
+                TestBatteryViewActivity.actionStart(this@MainActivity)
             }
             title("基建")
             item("崩溃报告") {
@@ -37,7 +40,7 @@ class SplashActivity : BaseActivity() {
             }
             title("其他")
             item("关于") {
-                AboutActivity.actionStart(this@SplashActivity)
+                AboutActivity.actionStart(this@MainActivity)
             }
         })
         title = "Demo列表"
